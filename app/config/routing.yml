@@ -1,0 +1,7 @@
+m2_i_blog:
+    resource: "@M2IBlogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
