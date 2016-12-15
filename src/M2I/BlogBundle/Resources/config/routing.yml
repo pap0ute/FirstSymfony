@@ -1,3 +1,27 @@
 m2_i_blog_homepage:
     path:     /
     defaults: { _controller: M2IBlogBundle:Index:index }
+
+m2_i_blog_contactpage:
+    path:     /contact
+    defaults: { _controller: M2IBlogBundle:Index:contact }
+
+m2_i_blog_aboutpage:
+    path:     /about
+    defaults: { _controller: M2IBlogBundle:Index:about }
+
+m2_i_blog_detailarticle:
+    path:     /detail/{idArticle}
+    defaults: { _controller: M2IBlogBundle:Index:detail }
+
+m2_i_blog_add_article:
+    path:    /article/add
+    defaults: { _controller: M2IBlogBundle:Index:add }
+
+m2_i_blog_edit_article:
+    path:    /article/edit/{idArticle}
+    defaults: { _controller: M2IBlogBundle:Index:editArticle }
+
+test:
+    path:    /test
+    defaults: { _controller: M2IBlogBundle:Index:test }

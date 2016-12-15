@@ -7,14 +7,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Personal Blog a Blogging Category Flat Bootstarp  Responsive Website Template | Home :: w3layouts</title>
+    <title>First Symfony Project</title>
     <link href="{{ asset('css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
     <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Personal Blog Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" 
-    />
+    <meta name="keywords" content="First Symfony Project" />
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!----webfonts---->
         <link href='http://fonts.googleapis.com/css?family=Oswald:100,400,300,700' rel='stylesheet' type='text/css'>
@@ -28,7 +26,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--/script-->
 <script type="text/javascript">
             jQuery(document).ready(function($) {
-                $(".scroll").click(function(event){     
+                $(".scroll").click(function(event){
                     event.preventDefault();
                     $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
                 });
@@ -38,11 +36,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </head>
 <body>
-<!---header---->            
-<div class="header">  
+<!---header---->
+<div class="header">
      <div class="container">
           <div class="logo">
-              <a href="index.html"><img src="{{ asset('images/logo.jpg') }}" title="" /></a>
+              <a href="{{ path('m2_i_blog_homepage') }}"><img src="{{ asset('images/logo.jpg') }}" title="" /></a>
           </div>
              <!---start-top-nav---->
              <div class="top-menu">
@@ -52,11 +50,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                      <input type="submit" value=""/>
                      </form>
                  </div>
-                  <span class="menu"> </span> 
+                  <span class="menu"> </span>
                    <ul>
-                        <li class="active"><a href="index.html">HOME</a></li>                       
-                        <li><a href="about.html">ABOUT</a></li> 
-                        <li><a href="contact.html">CONTACT</a></li>                     
+                        <li class="active"><a href="{{ path('m2_i_blog_homepage') }}">HOME</a></li>
+                        <li><a href="{{ path('m2_i_blog_aboutpage') }}">ABOUT</a></li>
+                        <li><a href="{{ path('m2_i_blog_contactpage') }}">CONTACT</a></li>
                         <div class="clearfix"> </div>
                  </ul>
              </div>
@@ -67,7 +65,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     });
                     });
                     </script>
-                <!---//End-top-nav---->                 
+                <!---//End-top-nav---->
      </div>
 </div>
 <!--/header-->
@@ -80,7 +78,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
               </div>
               <div class="col-md-4 content-right">
                  <div class="recent">
-                     <h3>RECENT POSTS</h3>
+                     <h3>DERNIERS ARTICLES</h3>
                      <ul>
                      <li><a href="#">Aliquam tincidunt mauris</a></li>
                      <li><a href="#">Vestibulum auctor dapibus  lipsum</a></li>
@@ -89,9 +87,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                      </ul>
                  </div>
                  <div class="comments">
-                     <h3>RECENT COMMENTS</h3>
+                     <h3>DERNIERS COMMENTAIRES</h3>
                      <ul>
-                     <li><a href="#">Amada Doe </a> on <a href="#">Hello World!</a></li>
+                     <li><a href="#">Barbara Chatte </a> on <a href="#">Qui veut une gaufrette ?!</a></li>
                      <li><a href="#">Peter Doe </a> on <a href="#"> Photography</a></li>
                      <li><a href="#">Steve Roberts  </a> on <a href="#">HTML5/CSS3</a></li>
                      </ul>
@@ -127,5 +125,4 @@ License URL: http://creativecommons.org/licenses/by/3.0/
      <p>Copyrights © 2015 Blog All rights reserved | Template by <a href="http://w3layouts.com/">W3layouts</a></p>
      </div>
 </div>
-
-    
+</body>

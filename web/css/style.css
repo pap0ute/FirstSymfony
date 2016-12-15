@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 html, body{
     font-size: 100%;
 	background-size:cover;
-	font-family: 'Oswald', sans-serif;	
+	font-family: 'Oswald', sans-serif;
 }
 body a{
 transition: 0.5s all ease;
@@ -17,7 +17,7 @@ transition: 0.5s all ease;
 -ms-transition: 0.5s all ease;
 }
 h1,h2,h3,h4,h5,h6{
-	margin:0;			   
+	margin:0;
 }
 p{
 	margin:0;
@@ -84,7 +84,8 @@ transition: 0.5s all;
 -o-transition: 0.5s all;
 }
 .top-menu ul li a:hover,.top-menu ul li.active a{
-color:#00aeff;
+/* color:#00aeff; */
+color:#2D9600;
 }
 /*----*/
 .content,.about-content,.contact-content,.single{
@@ -110,11 +111,12 @@ margin-bottom:1em;
 }
 .post-info h4 a{
 font-size:1.7em;
-color:#00aeff;
+/*color:#00aeff;*/
+color:#2D9600;
 margin-right:0.7em;
 display:inline-block;
 text-decoration:none;
-font-family: 'Oswald', sans-serif;	
+font-family: 'Oswald', sans-serif;
 font-weight:400;
 text-transform:uppercase;
 }
@@ -143,7 +145,8 @@ display: inline-block;
 text-decoration: none;
 }
 .post-info a:hover{
-color:#00aeff;
+/*color:#00aeff;*/
+color:#2D9600;
 }
 /*==================================================
  * Effect 2
