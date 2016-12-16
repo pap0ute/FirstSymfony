@@ -4,9 +4,6 @@ namespace M2I\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-use M2I\BlogBundle\Entity\Comment;
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Article
  *
@@ -46,23 +43,16 @@ class Article
     private $createDate;
 
     /**
-     * @ORM\OneToOne(targetEntity="M2I\BlogBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="M2I\BlogBundle\Entity\Article", cascade={"persist"})
      */
     private $image;
 
     public function __construct()
     {
         $this->createDate = new \DateTime();
-        $this->commentList = new ArrayCollection();
     }
 
-     /**
-     * One Article has Many Comments.
-     * @ORM\OneToMany(targetEntity="M2I\BlogBundle\Entity\Comment", mappedBy="article")
-     */
-     private $commentList;
-
-     /**
+    /**
      * Get id
      *
      * @return integer
@@ -139,28 +129,5 @@ class Article
     public function getCreateDate()
     {
         return $this->createDate;
-    }
-
-    /**
-     * Set image
-     *
-     * @param \M2I\BlogBundle\Entity\Article $image
-     * @return Article
-     */
-    public function setImage(\M2I\BlogBundle\Entity\Article $image = null)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return \M2I\BlogBundle\Entity\Article
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 }

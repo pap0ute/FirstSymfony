@@ -22,6 +22,17 @@ m2_i_blog_edit_article:
     path:    /article/edit/{idArticle}
     defaults: { _controller: M2IBlogBundle:Index:editArticle }
 
+m2_i_blog_delete_article:
+    path:    /article/delete/{idArticle}
+    defaults: { _controller: M2IBlogBundle:Index:deleteArticle }
+
+
+
+
+
+
+
+
 test:
     path:    /test
     defaults: { _controller: M2IBlogBundle:Index:test }

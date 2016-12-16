@@ -7,12 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use M2I\BlogBundle\Entity\Article;
 
-use Symfony\Component\Form\Extension\Core\Type\FormType; // Appel la Création de Formulaire
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+//use Symfony\Component\Form\Extension\Core\Type\FormType; // Appel la Création de Formulaire
 use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\Form\Extension\Core\Type\TextType;
+//use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+//use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+//use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+
+use M2I\BlogBundle\Form\ArticleType;
 
 
 
@@ -107,22 +110,11 @@ class IndexController extends Controller
     public function addAction(Request $request)
     {
         $article = new Article();
-        $article->setTitle('Titre');
 
-        $formBuilder = $this
+        $form = $this
                 ->container
                 ->get('form.factory')
-                ->createBuilder(FormType::class, $article);
-
-        $formBuilder
-                ->add('title',         TextType::class,        ['label' => 'Titre'])
-                ->add('description',   TextareaType::class,    ['label' => 'Contenu de l\'Article'])
-                ->add('createDate',    DateTimeType::class,    ['label' => 'Date et Heure de Création'])
-                ->add('save',          SubmitType::class,      ['label' => 'Publier'])
-                ->getForm()
-                ;
-
-        $form = $formBuilder->getForm();
+                ->create(ArticleType::class, $article);
 
         // Si la requête est en POST
         if ($request->isMethod('POST'))
@@ -152,20 +144,10 @@ class IndexController extends Controller
 
         $article = $articleRepository->findOneById($idArticle);
 
-        $formBuilder = $this
+        $form = $this
                 ->container
                 ->get('form.factory')
-                ->createBuilder(FormType::class, $article);
-
-        $formBuilder
-                ->add('title',         TextType::class,        ['label' => 'Titre'])
-                ->add('description',   TextareaType::class,    ['label' => 'Contenu de l\'Article'])
-                ->add('createDate',    DateTimeType::class,    ['label' => 'Date et Heure de Création'])
-                ->add('save',          SubmitType::class,      ['label' => 'Publier'])
-                ->getForm()
-                ;
-
-        $form = $formBuilder->getForm();
+                ->create(ArticleType::class, $article);
 
         if ($request->isMethod('POST'))
         {
@@ -185,5 +167,23 @@ class IndexController extends Controller
         }
 
         return $this->render('M2IBlogBundle:Index:edit_article.html.twig', array('myForm' => $form->createView()));
+    }
+
+    public function deleteArticleAction($idArticle)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');               // Entity Manager : Sert à aller chercher le Repo de Entity Manager
+        $articleRepository = $em->getRepository('M2IBlogBundle:Article'); //->find($idArticle);         // Va chercher le Repo de notre Class Article
+
+        $article = $articleRepository->findOneById($idArticle);
+
+        if (!$article)
+        {
+            throw $this->createNotFoundException("Processing Request : T'as encore fait de la merde !");
+        }
+
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('m2_i_blog_homepage');
     }
 }

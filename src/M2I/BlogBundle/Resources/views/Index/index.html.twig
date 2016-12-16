@@ -11,6 +11,7 @@
          <p>{{ article.description }}</p>
          <a href="{{ path('m2_i_blog_detailarticle', {'idArticle':article.id}) }}"><span></span>READ MORE</a>
          <a href="{{ path('m2_i_blog_edit_article', {'idArticle':article.id}) }}"><span></span>EDIT</a>
+         <a href="{{ path('m2_i_blog_delete_article', {'idArticle':article.id}) }}"><span></span>DELETE</a>
          </div>
      </div>
      {% endfor %}
