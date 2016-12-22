@@ -12,5 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
-    
+    public function myLastArticleList()
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->orderBy('a.createDate', 'DESC');
+        $qb->setmaxResults(50); // Les 50 derniers articles
+
+        return $qb->getQuery()->getResult();
+    }
 }

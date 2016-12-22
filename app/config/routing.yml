@@ -1,3 +1,11 @@
 m2_i_blog:
     resource: "@M2IBlogBundle/Resources/config/routing.yml"
     prefix:   /
+
+login:
+    path: /login
+    defaults: { _controller: M2IUserBundle:Security:login }
+login_check:
+    path: /login_check
+logout:
+    path: /logout

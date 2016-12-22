@@ -7,8 +7,16 @@
          <div class="post-info">
          <h4><a href="{{ path('m2_i_blog_detailarticle', {'idArticle':article.id}) }}">{{ article.title }}</a> {{ article.createDate| date("d/m/Y") }} / 27 Comments</h4>
          <p>{{ article.description }}</p>
-         <a href="{{ path('m2_i_blog_detailarticle', {'idArticle':article.id}) }}"><span></span>READ MORE</a>
+         <a href="{{ path('m2_i_blog_detailarticle', {'idArticle':article.id}) }}"><span></span>READ MORE</a><br /><br />
+         <hr /><br />
+
+         {% for comment in lastCommentList %}
+               <p><strong>Commentaire :</strong> {{ comment.content }}</p>
+               <p><strong>Author :</strong> {{ comment.author }}</p>
+         {% endfor %}
          </div>
      </div>
  </div>
+
+ {{ form(commentForm) }}
 {% endblock %}

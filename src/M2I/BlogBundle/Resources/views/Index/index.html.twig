@@ -2,7 +2,7 @@
 
 {% block body %}
  <div class="content-grid">
-     {% for article in articleList %}
+     {% for article in lastArticleList %}
      <div class="content-grid-info">
          <img src="{{ asset('images/post'~random('123')~'.jpg') }}" alt=""/>
          <div class="post-info">

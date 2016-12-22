@@ -50,17 +50,17 @@ class Article
      */
     private $image;
 
+    /**
+    * One Article has Many Comments.
+    * @ORM\OneToMany(targetEntity="M2I\BlogBundle\Entity\Comment", mappedBy="article")
+    */
+    private $commentList;
+
     public function __construct()
     {
         $this->createDate = new \DateTime();
         $this->commentList = new ArrayCollection();
     }
-
-     /**
-     * One Article has Many Comments.
-     * @ORM\OneToMany(targetEntity="M2I\BlogBundle\Entity\Comment", mappedBy="article")
-     */
-     private $commentList;
 
      /**
      * Get id
@@ -162,5 +162,40 @@ class Article
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+     * Add commentList
+     *
+     * @param \M2I\BlogBundle\Entity\Comment $commentList
+     * @return Article
+     */
+    public function addCommentList(\M2I\BlogBundle\Entity\Comment $commentList)
+    {
+        $this->commentList[] = $commentList;
+
+        $commentList->setArticle($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove commentList
+     *
+     * @param \M2I\BlogBundle\Entity\Comment $commentList
+     */
+    public function removeCommentList(\M2I\BlogBundle\Entity\Comment $commentList)
+    {
+        $this->commentList->removeElement($commentList);
+    }
+
+    /**
+     * Get commentList
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommentList()
+    {
+        return $this->commentList;
     }
 }

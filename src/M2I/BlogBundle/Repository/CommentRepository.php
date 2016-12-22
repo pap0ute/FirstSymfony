@@ -4,6 +4,8 @@ namespace M2I\BlogBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
+use M2I\BlogBundle\Entity\Article; // On lie l'Entity Article
+
 /**
  * CommentRepository
  *
@@ -12,4 +14,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+    public function myLastCommentList(Article $article)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.article = :article')
+           ->setParameter('article', $article) ;
+
+        $qb->orderBy('a.createDate', 'DESC');
+        $qb->setmaxResults(10); // Les 10 derniers commentaires
+
+        return $qb->getQuery()->getResult();
+    }
 }

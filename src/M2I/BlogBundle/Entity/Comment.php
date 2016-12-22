@@ -15,6 +15,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Comment
 {
+
+    public function __construct()
+    {
+        $this->createDate = new \DateTime();
+        //$this->commentList = new ArrayCollection();
+    }
+
     /**
      * @var int
      *
@@ -129,5 +136,28 @@ class Comment
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set article
+     *
+     * @param \M2I\BlogBundle\Entity\Article $article
+     * @return Comment
+     */
+    public function setArticle(\M2I\BlogBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \M2I\BlogBundle\Entity\Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }

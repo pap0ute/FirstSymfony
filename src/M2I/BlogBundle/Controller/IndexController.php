@@ -14,13 +14,42 @@ use Symfony\Component\HttpFoundation\Request;
 //use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 //use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 use M2I\BlogBundle\Form\ArticleType;
+use M2I\BlogBundle\Form\CommentType;
+use M2I\BlogBundle\Entity\Comment;
+
+use M2I\UserBundle\Entity\User;
 
 
 
 class IndexController extends Controller
 {
+    public function addUserAction()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $listNames = array('Benoit', 'Melanie', 'Jerome');
+
+        foreach ($listNames as $name)
+        {
+            // On crée l'utilisateur
+            $user = new User();
+            // A ENTRER EN BDD SUR ROLES a:1:{i:0;s:10:"ROLE_ADMIN";}
+            // A ENTRER EN BDD SUR ROLES a:1:{i:0;s:9:"ROLE_USER";}
+            // Le nom d'utilisateur et le mot de passe son identiques
+            $user->setUsername($name);
+            $user->setPassword($name);
+
+            // On ne se sert pas du sel pour l'instant
+            $user->setSalt('');
+            // On définit uniquement le role ROLE_ADMIN
+            $user->setRoles(array('ROLE_ADMIN'));
+
+            // On le persiste
+            $em->persist($user);
+        }
+        // On déclenche l'enregistrement
+        $em->flush();
+    }
 
     /* public function testAction()
     {
@@ -54,7 +83,7 @@ class IndexController extends Controller
         $articleRepository = $em->getRepository('M2IBlogBundle:Article');         // Va chercher le Repo de notre Class Article
         //$doctrine = $this->container->get('doctrine');
         //$em = $doctrine->getManager();
-        $articleList = $articleRepository->findAll();                             // Hydrate les Objets de Article
+        //$articleList = $articleRepository->findAll();                             // Hydrate les Objets de Article
         /********************* Version BeauGosse *************************
         / $em = $this->getDoctrine()->getManager();
         / $articleRepository = $em-getRepository('M2IBlogBundle:Article');
@@ -79,9 +108,16 @@ class IndexController extends Controller
         die();
         ******************************************************************/
 
-        $articleList = $articleRepository->findAll();
 
-        return $this->render('M2IBlogBundle:Index:index.html.twig', array('articleList' => $articleList));
+        $lastArticleList = $articleRepository->myLastArticleList();
+
+        return $this->render('M2IBlogBundle:Index:index.html.twig',
+                       array(
+                             'lastArticleList' => $lastArticleList,
+                )
+        );
+
+        //return $this->render('M2IBlogBundle:Index:index.html.twig', array('articleList' => $articleList));
 
     }
 
@@ -95,14 +131,44 @@ class IndexController extends Controller
         return $this->render('M2IBlogBundle:Index:about.html.twig');
     }
 
-    public function detailAction($idArticle)
+    public function detailAction(Request $request, $idArticle)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');               // Entity Manager : Sert à aller chercher le Repo de Entity Manager
         $articleRepository = $em->getRepository('M2IBlogBundle:Article');         // Va chercher le Repo de notre Class Article
+        $CommentRepository = $em->getRepository('M2IBlogBundle:Comment');
 
-        $article = $articleRepository->findOneById($idArticle);
+        $article = $articleRepository->findOneById($idArticle); // Converti $idArticle en $article
 
-        return $this->render('M2IBlogBundle:Index:detail.html.twig', array('article' => $article));
+        $lastCommentList = $CommentRepository->myLastCommentList($article);
+
+        $comment = new Comment();
+
+        $form = $this
+                ->container
+                ->get('form.factory')
+                ->create(CommentType::class, $comment);
+
+            if ($request->isMethod('POST'))
+            {
+                $form->handleRequest($request);
+                if ($form->isValid())
+                {
+                    //$comment->setCreateDate(new \DateTime());
+                    //$comment->setArticle($article); //Ajouté dans ARTICLE / addCommentList avec $this en param
+                    $article->addCommentList($comment);
+
+                    $em->persist($comment);
+                    $em->flush();
+                }
+            }
+
+        return $this->render('M2IBlogBundle:Index:detail.html.twig',
+                       array('article'         => $article,
+                             'commentForm'     => $form->createView(),
+                             'lastCommentList' => $lastCommentList,
+                )
+        );
+
     }
 
 
